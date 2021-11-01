@@ -1,4 +1,6 @@
-export interface IBook {
+
+export interface Book {
+    _id,
     title: string,
     year_written: number,
     edition: string,
