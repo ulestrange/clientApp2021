@@ -13,7 +13,7 @@ export class BookListComponent implements OnInit {
   bookList: Book[] = [];
   message: string = "";
 
-  currentBook : Book;
+  currentBook! : Book;
 
   constructor(private bookService: BookService) { }
 
@@ -22,7 +22,7 @@ export class BookListComponent implements OnInit {
 
     this.bookService.getBooks().subscribe({
       next: (value: Book[] )=> this.bookList = value,
-      complete: () => console.log('book service finished' + this.bookList[0].title),
+      complete: () => console.log('book service finished'),
       error: (mess) => this.message = mess
     })
   }
