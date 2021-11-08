@@ -3,12 +3,17 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { HttpClientModule } from '@angular/common/http';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+
+
 
 import { Test1Component } from './test1/test1.component';
-import { HttpClientModule } from '@angular/common/http';
+
 import { BookListComponent } from './book2/book-list/book-list.component';
 import { BookRowComponent } from './book2/book-row/book-row.component';
 import { BookDetailsComponent } from './book2/book-details/book-details.component';
+import { SampleFormComponent } from './book2/sample-form/sample-form.component';
 
 @NgModule({
   declarations: [
@@ -16,12 +21,15 @@ import { BookDetailsComponent } from './book2/book-details/book-details.componen
     Test1Component,
     BookListComponent,
     BookRowComponent,
-    BookDetailsComponent
+    BookDetailsComponent,
+    SampleFormComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
