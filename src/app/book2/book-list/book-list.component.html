@@ -1,12 +1,28 @@
-<p>book-list works!</p>
+<div class="container-fluid">
 
-<h2 *ngIf="message">{{message}}</h2>
+
+<div *ngIf="message" class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>Opps</strong> {{message}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+
+
 
  
-<app-book-row *ngFor="let b of bookList"
+<app-book-row class="card" *ngFor="let b of bookList"
 [book]="b"
-(click)='clicked(b)'></app-book-row>
+(click)='clicked(b)'
+[class.bg-info]="isSelected(b)" [class.text-white]="isSelected(b)">
+</app-book-row>
 
 <app-book-details *ngIf="currentBook!" [book]="currentBook">
 
 </app-book-details>
+
+<button (click)="openAddBook()" *ngIf="!addBook">Add Book</button>
+
+<app-sample-form *ngIf="addBook" 
+(newBookEvent)="addNewBook($event)"></app-sample-form>  
+
+
+</div>

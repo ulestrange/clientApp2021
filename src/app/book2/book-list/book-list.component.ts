@@ -12,6 +12,7 @@ export class BookListComponent implements OnInit {
 
   bookList: Book[] = [];
   message: string = "";
+  addBook: boolean = false;
 
   currentBook! : Book;
 
@@ -29,6 +30,34 @@ export class BookListComponent implements OnInit {
 
   clicked (book: Book): void {
     this.currentBook = book;
+    console.table(this.currentBook)
+  }
+
+  isSelected(book: Book): boolean{
+    if (!book || !this.currentBook) {
+      return false;
+    }
+    else {
+
+      return book._id === this.currentBook._id;
+    }
+  }
+
+  openAddBook(): void {
+    this.currentBook = null;
+    this.addBook = true;
+  }
+
+  addNewBook(newBook: Book): void {
+    console.log('adding new book ' + JSON.stringify(newBook));
+    this.bookService.addBook({ ...newBook })
+      .subscribe({
+        next: book => {
+          console.log(JSON.stringify(book) + ' has been added');
+        this.message = "new book has been added";},
+        error: (err) => this.message = err
+      });
+    this.addBook = false;
   }
 
 }

@@ -40,7 +40,10 @@ export class BookService {
   }
 
 
+  addBook(book: Book): Observable<Book> {
+    return of(book)
 
+  }
 
   //taken from: https://angular.io/guide/http
 
