@@ -16,6 +16,7 @@ import { BookDetailsComponent } from './book2/book-details/book-details.componen
 import { SampleFormComponent } from './book2/sample-form/sample-form.component';
 import { BookFormComponent } from './book2/book-form/book-form.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,

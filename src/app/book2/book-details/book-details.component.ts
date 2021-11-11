@@ -8,7 +8,7 @@ import {Book} from '../../book';
 })
 export class BookDetailsComponent implements OnInit {
 
-  @Input() book : Book;
+  @Input() book? : Book;
 
   constructor() { }
 

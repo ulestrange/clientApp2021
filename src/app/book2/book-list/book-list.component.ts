@@ -12,9 +12,9 @@ export class BookListComponent implements OnInit {
 
   bookList: Book[] = [];
   message: string = "";
-  addBook: boolean = false;
+  showBookForm: boolean = false;
 
-  currentBook! : Book;
+  currentBook? : Book = undefined;
 
   constructor(private bookService: BookService) { }
 
@@ -44,8 +44,12 @@ export class BookListComponent implements OnInit {
   }
 
   openAddBook(): void {
-    this.currentBook = null;
-    this.addBook = true;
+    this.currentBook = undefined;
+    this.showBookForm = true;
+  }
+
+  openEditBook(): void {
+    this.showBookForm = true;
   }
 
   addNewBook(newBook: Book): void {
@@ -57,7 +61,22 @@ export class BookListComponent implements OnInit {
         this.message = "new book has been added";},
         error: (err) => this.message = err
       });
-    this.addBook = false;
+    this.showBookForm = false;
+  }
+
+  bookFormClose(book?: Book): void{
+    this.showBookForm = false;
+    console.table(book);
+    if (book == null){
+      this.currentBook = undefined
+    }
+    else if (this.currentBook == null){
+      this.addNewBook(book);
+    }
+    else {
+      console.log('need to update book with id ' + this.currentBook._id);
+     // this.updateBook(this.currentBook._id, book)
+    }
   }
 
 }

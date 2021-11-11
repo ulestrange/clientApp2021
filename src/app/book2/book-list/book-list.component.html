@@ -6,34 +6,16 @@
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
   </div>
 
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-  Add New Book Using Modal
-</button>
+  <button (click)="openAddBook()" *ngIf="!showBookForm"
+  class="btn btn-lg btn-outline-primary" >Add Book</button>
+  
+  <button (click)="openEditBook()" *ngIf="!showBookForm" [disabled]="!currentBook"
+  class="btn btn-lg btn-outline-primary" >Edit Book</button>
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add New Book</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <app-book-form (newBookEvent)="addNewBook($event)"></app-book-form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close without Saving</button>
-        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
-      </div>
-    </div>
-  </div>
-</div>
+  <app-book-form *ngIf="showBookForm" 
+  (newBookEvent)="addNewBook($event)"  (bookFormClose)="bookFormClose($event)" [book]="currentBook" ></app-book-form >  
 
 
-
-
- 
 <app-book-row class="card" *ngFor="let b of bookList"
 [book]="b"
 (click)='clicked(b)'
@@ -44,10 +26,7 @@
 
 </app-book-details>
 
-<button (click)="openAddBook()" *ngIf="!addBook">Add Book</button>
 
-<app-sample-form *ngIf="addBook" 
-(newBookEvent)="addNewBook($event)"></app-sample-form>  
 
 
 </div>

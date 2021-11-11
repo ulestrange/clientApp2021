@@ -18,7 +18,7 @@ export class Test1Component implements OnInit {
 
   books: Book[] = [];
 
-  message: string;
+  message?: string;
 
   constructor(private bookService : BookService) { }
 

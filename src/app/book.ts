@@ -1,6 +1,6 @@
 
 export interface Book {
-    _id,
+    _id: string,
     title: string,
     year_written: number,
     edition: string,

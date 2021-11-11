@@ -1,6 +1,10 @@
-<p>sample-form works!</p>
+
+
 
 <form [formGroup]="bookForm" (ngSubmit) = "onSubmit()" >
+
+
+    <button type="button" class="btn-close" aria-label="Close" (click)="closeForm()"></button>
 
 <div>
     <label for="title"> Title</label>
@@ -11,12 +15,12 @@
     <input id="year_written" type="number" formControlName="year_written">
 </div>
 
-<button type="submit" [disabled]= "!bookForm.valid" >Submit</button>
+<button type="submit" [disabled]= "!bookForm?.valid" >Submit</button>
 
-<div *ngIf="title.invalid && title.touched"  class="alert alert-danger" >
+<div *ngIf="title?.invalid && title?.touched"  class="alert alert-danger" >
     Title is required and must be more than 3 characters
 </div>
-<div *ngIf="year_written.invalid && year_written.touched"  class="alert alert-danger" >
+<div *ngIf="year_written?.invalid && year_written?.touched"  class="alert alert-danger" >
     Year Written is required and must be 2024 or earlier
 </div>
 

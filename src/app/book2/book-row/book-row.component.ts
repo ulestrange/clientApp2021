@@ -8,7 +8,7 @@ import { Book } from 'src/app/book';
 })
 export class BookRowComponent implements OnInit {
 
-  @Input() book: Book;
+  @Input() book?: Book;
 
   constructor() { }
 
