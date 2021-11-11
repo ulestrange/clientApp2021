@@ -74,6 +74,7 @@ export class BookListComponent implements OnInit {
       this.addNewBook(book);
     }
     else {
+      this.message = "book has been updated";
       console.log('need to update book with id ' + this.currentBook._id);
      // this.updateBook(this.currentBook._id, book)
     }
