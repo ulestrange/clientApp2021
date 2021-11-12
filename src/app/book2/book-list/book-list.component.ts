@@ -68,6 +68,7 @@ export class BookListComponent implements OnInit {
     this.showBookForm = false;
     console.table(book);
     if (book == null){
+      this.message = "form closed without saving";
       this.currentBook = undefined
     }
     else if (this.currentBook == null){
