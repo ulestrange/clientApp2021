@@ -3,7 +3,7 @@
 
   <div *ngIf="message" class="alert alert-warning alert-dismissible show" role="alert">
     <strong>Opps</strong> {{message}}
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <button type="button" class="btn-close" (click)="dismissAlert()" aria-label="Close"></button>
   </div>
 
   <button (click)="openAddBook()" *ngIf="!showBookForm" class="btn btn-lg btn-outline-primary">Add Book</button>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Book } from '../../book'
-import { BookService  }  from '../../book.service'
+import { BookService } from '../../book.service'
 
 
 @Component({
@@ -14,7 +14,7 @@ export class BookListComponent implements OnInit {
   message: string = "";
   showBookForm: boolean = false;
 
-  currentBook? : Book = undefined;
+  currentBook?: Book = undefined;
 
   constructor(private bookService: BookService) { }
 
@@ -22,18 +22,18 @@ export class BookListComponent implements OnInit {
 
 
     this.bookService.getBooks().subscribe({
-      next: (value: Book[] )=> this.bookList = value,
+      next: (value: Book[]) => this.bookList = value,
       complete: () => console.log('book service finished'),
       error: (mess) => this.message = mess
     })
   }
 
-  clicked (book: Book): void {
+  clicked(book: Book): void {
     this.currentBook = book;
     console.table(this.currentBook)
   }
 
-  isSelected(book: Book): boolean{
+  isSelected(book: Book): boolean {
     if (!book || !this.currentBook) {
       return false;
     }
@@ -58,27 +58,61 @@ export class BookListComponent implements OnInit {
       .subscribe({
         next: book => {
           console.log(JSON.stringify(book) + ' has been added');
-        this.message = "new book has been added";},
+          this.message = "new book has been added";
+        },
         error: (err) => this.message = err
       });
-    this.showBookForm = false;
+
+    // so the updated list appears
+
+    this.bookService.getBooks().subscribe({
+      next: (value: Book[]) => this.bookList = value,
+      complete: () => console.log('book service finished'),
+      error: (mess) => this.message = mess
+    })
   }
 
-  bookFormClose(book?: Book): void{
+  updateBook(id: string, book: Book): void {
+    console.log('updating ' + JSON.stringify(book));
+    this.bookService.updateBook(id, book)
+      .subscribe({
+        next: book => {
+          console.log(JSON.stringify(book) + ' has been updated');
+          this.message = " book has been updated";
+        },
+        error: (err) => this.message = err
+      });
+    // so the updated list appears
+
+    this.bookService.getBooks().subscribe({
+      next: (value: Book[]) => this.bookList = value,
+      complete: () => console.log('book service finished'),
+      error: (mess) => this.message = mess
+    })
+  }
+
+
+  /* either the form has closed without saving or new book details have been
+  entered or a book has been updated */
+
+  bookFormClose(book?: Book): void {
     this.showBookForm = false;
     console.table(book);
-    if (book == null){
+    if (book == null) {
       this.message = "form closed without saving";
       this.currentBook = undefined
     }
-    else if (this.currentBook == null){
+    else if (this.currentBook == null) {
       this.addNewBook(book);
     }
     else {
-      this.message = "book has been updated";
-      console.log('need to update book with id ' + this.currentBook._id);
-     // this.updateBook(this.currentBook._id, book)
+      this.updateBook(this.currentBook._id, book)
     }
+  }
+
+
+  dismissAlert() {
+    this.message = "";
   }
 
 }
