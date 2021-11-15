@@ -6,7 +6,8 @@
     <button type="button" class="btn-close" (click)="dismissAlert()" aria-label="Close"></button>
   </div>
 
-  <button (click)="openAddBook()" *ngIf="!showBookForm" class="btn btn-lg btn-outline-primary">Add Book</button>
+  <button (click)="openAddBook()" *ngIf="!showBookForm" 
+  class="btn btn-lg btn-outline-primary">Add Book</button>
 
   <button (click)="openEditBook()" *ngIf="!showBookForm" [disabled]="!currentBook"
     class="btn btn-lg btn-outline-primary">Edit Book</button>
@@ -14,7 +15,8 @@
   <button (click)="deleteBook()" *ngIf="!showBookForm" [disabled]="!currentBook"
     class="btn btn-lg btn-outline-danger">Delete Book</button>
 
-  <app-book-form *ngIf="showBookForm" (newBookEvent)="addNewBook($event)" (bookFormClose)="bookFormClose($event)"
+  <app-book-form *ngIf="showBookForm" (newBookEvent)="addNewBook($event)" 
+  (bookFormClose)="bookFormClose($event)"
     [book]="currentBook"></app-book-form>
 
   <div *ngIf="!showBookForm">
