@@ -11,6 +11,9 @@
   <button (click)="openEditBook()" *ngIf="!showBookForm" [disabled]="!currentBook"
     class="btn btn-lg btn-outline-primary">Edit Book</button>
 
+  <button (click)="deleteBook()" *ngIf="!showBookForm" [disabled]="!currentBook"
+    class="btn btn-lg btn-outline-danger">Delete Book</button>
+
   <app-book-form *ngIf="showBookForm" (newBookEvent)="addNewBook($event)" (bookFormClose)="bookFormClose($event)"
     [book]="currentBook"></app-book-form>
 

@@ -41,6 +41,17 @@ export class BookService {
       )
   }
 
+
+/** DELETE: delete the book from the server */
+deleteBook(id: string): Observable<unknown> {
+  const url = `${this.dataUri}/${id}`; // DELETE 
+  return this.http.delete(url)
+    .pipe(
+      catchError(this.handleError)
+    );
+}
+
+
   //taken from: https://angular.io/guide/http
 
   private handleError(error: HttpErrorResponse) {
