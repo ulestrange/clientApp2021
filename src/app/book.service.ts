@@ -23,7 +23,7 @@ export class BookService {
   }
 
   updateBook(id: string, book: Book): Observable<Book> {
-    console.log('subscribing to update' + id);
+    console.log('subscribing to update/' + id);
     let bookURI: string = this.dataUri + '/' + id;
     return this.http.put<Book>(bookURI, book)
       .pipe(
