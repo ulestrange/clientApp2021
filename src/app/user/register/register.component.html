@@ -1,0 +1,41 @@
+<p>register works!</p>
+
+<div *ngIf="message" class="alert alert-warning alert-dismissible show" role="alert">
+    <strong>Opps</strong> {{message}}
+    <button type="button" class="btn-close" (click)="dismissAlert()" aria-label="Close"></button>
+  </div>
+
+
+<form [formGroup]="userForm" (ngSubmit) = "onSubmit()" class>
+
+
+    <!-- <button type="button" class="btn-close" aria-label="Close" (click)="closeForm()"></button> -->
+
+<div class="mb-3">
+    <label for="firstName" class="form-label"> First Name</label>
+    <input id="firstName" type="text" formControlName="firstName" class="form-control">
+</div>
+<div class="mb-3">
+    <label for="lastName" class="form-label"> Last Name</label>
+    <input id="lastName" type="text" formControlName="lastName" class="form-control">
+</div>
+<div class="mb-3">
+    <label for="email" class="form-label"> Email</label>
+    <input id="eamil" type="text" formControlName="email" class="form-control">
+</div>
+<div class="mb-3">
+    <label for="password" class="form-label"> Password</label>
+    <input id="password" type="password" formControlName="password" class="form-control">
+</div>
+
+<button type="submit" [disabled]= "!userForm?.valid" class="btn btn-primary" >Submit</button>
+
+<!-- <div *ngIf="title?.invalid && title?.touched"  class="alert alert-danger" >
+    Title is required and must be more than 3 characters
+</div>
+<div *ngIf="year_written?.invalid && year_written?.touched"  class="alert alert-danger" >
+    Year Written is required and must be 2024 or earlier
+</div> -->
+
+
+</form>

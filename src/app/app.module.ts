@@ -15,6 +15,8 @@ import { BookRowComponent } from './book2/book-row/book-row.component';
 import { BookDetailsComponent } from './book2/book-details/book-details.component';
 import { SampleFormComponent } from './book2/sample-form/sample-form.component';
 import { BookFormComponent } from './book2/book-form/book-form.component';
+import { LoginComponent } from './user/login/login.component';
+import { RegisterComponent } from './user/register/register.component';
 
 
 @NgModule({
@@ -25,7 +27,9 @@ import { BookFormComponent } from './book2/book-form/book-form.component';
     BookRowComponent,
     BookDetailsComponent,
     SampleFormComponent,
-    BookFormComponent
+    BookFormComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
