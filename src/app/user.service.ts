@@ -1,27 +1,75 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http'
-import { Observable, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, ReplaySubject, throwError } from 'rxjs';
 import { User } from './user';
-import { catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  private apiURI: string = 'http://localhost:3000'
+  private apiURI: string = 'http://localhost:3000';
 
-  constructor(private http: HttpClient) { }
+  private userSubject: BehaviorSubject<User|null>;
+  public user: Observable<User|null>;
+
+
+
+  constructor(private http: HttpClient) {
+
+    this.userSubject = new BehaviorSubject<User|null>
+    (JSON.parse(localStorage.getItem('currentUser') || '{}')) ;
+    this.user = this.userSubject.asObservable();
+
+  }
+
+  public get userValue(): User|null {
+    return this.userSubject.value;
+}
+
 
   createUser(user: User): Observable<User> {
 
     const uri: string = this.apiURI + '/users';
-    
-    return this.http.post<User> (uri, user).
+
+    return this.http.post<User>(uri, user).
       pipe(
         catchError(this.handleError)
       );
   }
+
+  getUsers(): Observable<User[]> {
+
+    console.log("get Users called");
+
+    return this.http.get<User[]>(`${this.apiURI}/users`)
+      .pipe(
+        catchError(this.handleError)
+      )
+  }
+
+
+     public login(email: string, password: string): Observable<any> {
+
+      return this.http.post<any>(`${this.apiURI}/auth`, { email: email, password: password }).
+      pipe(map(user => {
+       localStorage.setItem('currentUser', JSON.stringify(user))
+       this.userSubject.next(user);
+      // later we will start a timer based on the JWT expiry and
+      // use a refresh token to get a new JWT in the background.
+      //this.startAuthenticateTimer();
+      return user;}
+      ))
+    }
+
+    logout() {
+      // remove user from local storage to log user out
+      localStorage.removeItem('currentUser');
+      this.userSubject.next(null);
+  }
+
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
@@ -53,3 +101,5 @@ export class UserService {
   }
 
 }
+
+
