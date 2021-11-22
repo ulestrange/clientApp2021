@@ -7,13 +7,13 @@
         <a class="nav-item nav-link" routerLink="/" routerLinkActive="active">Home</a>
         <a class="nav-item nav-link" routerLink="/books" routerLinkActive="active">Books</a>
         <a class="nav-item nav-link" routerLink="/users" routerLinkActive="active">Users</a>
-        <a class="nav-item nav-link" routerLink="/login" routerLinkActive="active">Login</a>
-        <a class="nav-item nav-link" routerLink="/register" routerLinkActive="active">Register</a>
-      
+        <a *ngIf="!user" class="nav-item nav-link" routerLink="/login" routerLinkActive="active">Login</a>
+        <a *ngIf="!user" class="nav-item nav-link" routerLink="/register" routerLinkActive="active">Register</a>
+        <a  *ngIf="user" class="nav-item nav-link" (click)="logout()">Logout</a>
         </div>
 </nav>
 
-<div *ngIf="user">{{user.firstName}}</div>
+<div *ngIf="user">Current User: {{user.firstName}}</div>
 
 <!-- main app container -->
 <div class="container pt-4">
