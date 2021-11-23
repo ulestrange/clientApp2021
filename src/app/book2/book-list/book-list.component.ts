@@ -62,13 +62,11 @@ export class BookListComponent implements OnInit {
         error: (err) => this.message = err
       });
 
-    // so the updated list appears
+    // so the updated list appears - and the component refreshes
 
-    this.bookService.getBooks().subscribe({
-      next: (value: Book[]) => this.bookList = value,
-      complete: () => console.log('book service finished'),
-      error: (mess) => this.message = mess
-    })
+    this.ngOnInit();
+
+
   }
 
   updateBook(id: string, book: Book): void {
@@ -81,13 +79,11 @@ export class BookListComponent implements OnInit {
         },
         error: (err) => this.message = err
       });
-    // so the updated list appears
+    
 
-    this.bookService.getBooks().subscribe({
-      next: (value: Book[]) => this.bookList = value,
-      complete: () => console.log('book service finished'),
-      error: (mess) => this.message = mess
-    })
+    // so the updated list appears - and the component refreshes
+
+    this.ngOnInit();
 
     this.currentBook = undefined;
   }
@@ -127,13 +123,9 @@ export class BookListComponent implements OnInit {
         });
     }
 
-    // so the updated list appears
+    // so the updated list appears - and the component refreshes
 
-    this.bookService.getBooks().subscribe({
-      next: (value: Book[]) => this.bookList = value,
-      complete: () => console.log('book service finished'),
-      error: (mess) => this.message = mess
-    })
+    this.ngOnInit();
 
   }
 
