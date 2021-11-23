@@ -17,11 +17,11 @@ import { SampleFormComponent } from './book2/sample-form/sample-form.component';
 import { BookFormComponent } from './book2/book-form/book-form.component';
 import { LoginComponent } from './user/login/login.component';
 import { RegisterComponent } from './user/register/register.component';
-//import { JwtInterceptor } from './helpers/jwtinterceptor';
+import { JwtInterceptor } from './helpers/jwtinterceptor';
 import { HomeComponent } from './home/home.component';
 import { UserListComponent } from './user/user-list/user-list.component';
-import { SecondinterceptorService } from './helpers/secondinterceptor.service';
-import { JwtInterceptor } from './helpers/jwtinterceptor';
+
+
 
 
 @NgModule({
