@@ -1,13 +1,26 @@
-<h1>2021 Client Application for worksheets
+<h1>Una's Lovely App
 </h1>
 
+<!-- nav -->
+<nav class="navbar navbar-expand navbar-dark bg-dark" >
+    <div class="navbar-nav">
+        <a class="nav-item nav-link" routerLink="/" routerLinkActive="active">Home</a>
+        <a class="nav-item nav-link" routerLink="/books" routerLinkActive="active">Books</a>
+        <a class="nav-item nav-link" routerLink="/users" routerLinkActive="active">Users</a>
+        <a *ngIf="!user" class="nav-item nav-link" routerLink="/login" routerLinkActive="active">Login</a>
+        <a *ngIf="!user" class="nav-item nav-link" routerLink="/register" routerLinkActive="active">Register</a>
+        <a  *ngIf="user" class="nav-item nav-link" (click)="logout()">Logout</a>
+        </div>
+</nav>
+
+<div *ngIf="user">Current User: {{user.firstName}}</div>
+
+<!-- main app container -->
+<div class="container pt-4">
+    <router-outlet></router-outlet>
+</div>
 
 
-
-<app-book-list></app-book-list>
-
-<!-- <app-sample-form></app-sample-form> -->
 
 <router-outlet></router-outlet>
 
-<app-register></app-register>

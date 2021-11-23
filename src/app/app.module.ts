@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 
@@ -17,6 +17,9 @@ import { SampleFormComponent } from './book2/sample-form/sample-form.component';
 import { BookFormComponent } from './book2/book-form/book-form.component';
 import { LoginComponent } from './user/login/login.component';
 import { RegisterComponent } from './user/register/register.component';
+//import { JwtInterceptor } from './helpers/jwtinterceptor';
+import { HomeComponent } from './home/home.component';
+import { UserListComponent } from './user/user-list/user-list.component';
 
 
 @NgModule({
@@ -29,7 +32,9 @@ import { RegisterComponent } from './user/register/register.component';
     SampleFormComponent,
     BookFormComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    HomeComponent,
+    UserListComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +43,7 @@ import { RegisterComponent } from './user/register/register.component';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+ providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
