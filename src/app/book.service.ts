@@ -5,13 +5,14 @@ import { Book } from './book'
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators'
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BookService {
 
-  private dataUri = 'http://localhost:3000/books'
+  private dataUri = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
 

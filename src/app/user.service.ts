@@ -3,6 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http'
 import { BehaviorSubject, Observable, ReplaySubject, throwError } from 'rxjs';
 import { User } from './user';
 import { catchError, map } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -10,8 +11,7 @@ import { catchError, map } from 'rxjs/operators';
 })
 export class UserService {
 
-  private apiURI: string = 'http://localhost:3000';
-
+  private apiURI: string = environment.apiUrl;
   private userSubject: BehaviorSubject<User|null>;
   public user: Observable<User|null>;
 
