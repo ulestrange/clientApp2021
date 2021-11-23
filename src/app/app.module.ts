@@ -20,6 +20,8 @@ import { RegisterComponent } from './user/register/register.component';
 //import { JwtInterceptor } from './helpers/jwtinterceptor';
 import { HomeComponent } from './home/home.component';
 import { UserListComponent } from './user/user-list/user-list.component';
+import { SecondinterceptorService } from './helpers/secondinterceptor.service';
+import { JwtInterceptor } from './helpers/jwtinterceptor';
 
 
 @NgModule({
@@ -43,7 +45,9 @@ import { UserListComponent } from './user/user-list/user-list.component';
     FormsModule,
     ReactiveFormsModule
   ],
- providers: [],
+ providers: [
+   {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

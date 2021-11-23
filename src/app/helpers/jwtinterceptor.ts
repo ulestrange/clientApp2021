@@ -15,24 +15,15 @@ export class JwtInterceptor implements HttpInterceptor {
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         // add auth header with jwt if account is logged in and request is to the api url
         const user = this.userService.userValue;
-        console.table(user);
-       // const isLoggedIn = user?.appToken;
 
+        const accessToken = user?.accessToken;
 
-        const isLoggedIn = localStorage.getItem('access_token');
-        console.log('is logged in ' + isLoggedIn);
-       // const isApiUrl = request.url.startsWith('environment.apiUrl');
-       const isApiUrl = true;
-        console.log('is api Url ' + isApiUrl);
+        const isApiUrl = request.url.startsWith(environment.apiUrl);
 
-        console.log(`Bearer ${isLoggedIn}`);
-
-        if (isLoggedIn && isApiUrl) {
-            console.log ('here');
+        if (accessToken && isApiUrl) {
             request = request.clone({
-                setHeaders: { Authorization: `Bearer ${isLoggedIn}` }
+                setHeaders: { Authorization: `Bearer ${accessToken}` }
             });
-
         }
 
 
