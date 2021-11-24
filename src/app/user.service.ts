@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http'
+import { HttpClient, HttpErrorResponse, JsonpClientBackend } from '@angular/common/http'
 import { BehaviorSubject, Observable, ReplaySubject, throwError } from 'rxjs';
 import { User } from './user';
 import { catchError, map } from 'rxjs/operators';
@@ -18,11 +18,18 @@ export class UserService {
 
 
   constructor(private http: HttpClient) {
-
-    this.userSubject = new BehaviorSubject<User|null>
-    (JSON.parse(localStorage.getItem('currentUser') || '{}')) ;
+ 
+    const storedUser : User = JSON.parse(localStorage.getItem('currentUser') || '{}');
+    console.log('User' + storedUser);
+    
+    this.userSubject = new BehaviorSubject<User|null>(JSON.parse(localStorage.getItem('currentUser') || '{}')) ;
     this.user = this.userSubject.asObservable();
 
+    if (this.userSubject.value == null || this.userSubject.value._id == undefined)
+    {
+      this.userSubject.next(null)
+    }
+  
   }
 
   public get userValue(): User|null {

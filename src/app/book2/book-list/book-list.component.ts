@@ -126,6 +126,7 @@ export class BookListComponent implements OnInit {
     // so the updated list appears - and the component refreshes
 
     this.ngOnInit();
+    this.currentBook = undefined;
 
   }
 

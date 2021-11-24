@@ -12,7 +12,7 @@ import { environment } from 'src/environments/environment';
 })
 export class BookService {
 
-  private dataUri = environment.apiUrl;
+  private dataUri = environment.apiUrl + '/books';
 
   constructor(private http: HttpClient) { }
 
