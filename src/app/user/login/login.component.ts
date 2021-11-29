@@ -31,7 +31,6 @@ export class LoginComponent implements OnInit {
         this.userService.login(this.form.email.value, this.form.password.value)
             .subscribe(
                 data => {
-                    console.log(data);
                     this.message = `Login successful for ${data.firstName} need to implement redirect`
                 },
                 error => {
