@@ -20,6 +20,7 @@ import { RegisterComponent } from './user/register/register.component';
 import { JwtInterceptor } from './helpers/jwtinterceptor';
 import { HomeComponent } from './home/home.component';
 import { UserListComponent } from './user/user-list/user-list.component';
+import { ErrorInterceptor } from './helpers/errorinterceptor';
 
 
 
@@ -46,7 +47,8 @@ import { UserListComponent } from './user/user-list/user-list.component';
     ReactiveFormsModule
   ],
  providers: [
-   {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
+   {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+   { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

@@ -57,7 +57,8 @@ export class UserService {
 
   public login(email: string, password: string): Observable<any> {
 
-    return this.http.post<any>(`${this.apiURI}/auth`, { email: email, password: password }).
+    return this.http.post<any>(`${this.apiURI}/auth`, { email: email, password: password },
+      { withCredentials: true }).
       pipe(map(user => {
 
         // get the expiry time from the JWT
@@ -79,9 +80,12 @@ export class UserService {
     localStorage.removeItem('currentUser');
     this.userSubject.next(null);
   }
-  private getFreshToken(): Observable<any> {
-    
-    return this.http.get<any>(`${this.apiURI}/auth/refresh/${this.userValue?._id}` ).
+  private getNewAccessToken(): Observable<any> {
+
+    // note the withCredentials below means that cookies will be sent to the server
+
+    return this.http.post<any>(`${this.apiURI}/auth/refresh`, {userid : this.userValue?._id},
+      { withCredentials: true }).
       pipe(map(user => {
         console.log('here')
 
@@ -94,57 +98,61 @@ export class UserService {
 
         this.startAuthenticateTimer(expires);
         return user;
-      }))
-    }
+      }),
+        catchError(this.handleError))
+  }
 
 
   private handleError(error: HttpErrorResponse) {
-        if(error.error instanceof ErrorEvent) {
-        // A client-side or network error occurred. Handle it accordingly.
-        console.error('An error occurred:', error.error.message);
-      } else {
-        // The backend returned an unsuccessful response code.
-        // The response body may contain clues as to what went wrong.
+    if (error.error instanceof ErrorEvent) {
+      // A client-side or network error occurred. Handle it accordingly.
+      console.error('An error occurred:', error.error.message);
+    } else {
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong.
 
 
-        console.error(
-          `Backend returned code ${error.status}, ` +
-          `body was: ${JSON.stringify(error.error)}`);
+      console.error(
+        `Backend returned code ${error.status}, ` +
+        `body was: ${JSON.stringify(error.error)}`);
 
 
 
-        // question over how much information you want to give to the end-user
-        // it depends on who will be using the system
-        // this information would not be returned in a public interface but might in an intranet.
+      // question over how much information you want to give to the end-user
+      // it depends on who will be using the system
+      // this information would not be returned in a public interface but might in an intranet.
 
-        if(error.status == 412) {
-      return throwError('412 Error' + JSON.stringify(error.error))
+      if (error.status == 412) {
+        return throwError('412 Error' + JSON.stringify(error.error))
+      }
+
+      if (error.status == 401){
+        localStorage.removeItem('currentUser');
+        this.userSubject.next(null);
+        return throwError('401 Error' + JSON.stringify(error.error))
+      }
+
     }
-
-  }
     // Return an observable with a user-facing error message.
     return throwError(
-    'Something bad happened; please try again later.');
+      'Something bad happened; please try again later.');
   }
 
-  private authenticateTimeout ? : any;
+  private authenticateTimeout?: any;
 
   private startAuthenticateTimer(expires: Date) {
-  console.log(expires);
+    console.log(expires);
 
+    // set a timeout to re-authenticate with the api one minute before the token expires
 
-  // set a timeout to re-authenticate with the api one minute before the token expires
-  const hello = expires.getTime();
+    const timeout = expires.getTime() - Date.now() - (60 * 1000);
 
-  const timeout = expires.getTime() - Date.now() - (60 * 1000);
-  console.log('timeout is ' + timeout);
-  //const { accessToken } = FB.getAuthResponse();
-  this.authenticateTimeout = setTimeout(() => {
-    console.log('timer gone ');
-    this.getFreshToken().subscribe();
-    //this.logout();
-  }, timeout);
-}
+    this.authenticateTimeout = setTimeout(() => {
+      console.log('timer gone ');
+      this.getNewAccessToken().subscribe();
+      // this.logout();
+    }, timeout);
+  }
 
 
 
