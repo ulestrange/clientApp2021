@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { UserService } from 'src/app/user.service';
 
 @Component({
@@ -13,7 +14,7 @@ export class RegisterComponent implements OnInit {
   message: String = "";
 
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private router : Router) { }
 
   ngOnInit(): void {
 
@@ -31,6 +32,7 @@ export class RegisterComponent implements OnInit {
         next: user => {
           console.log(JSON.stringify(user) + ' has been added');
           this.message = "new user has been added";
+         this. router.navigate(['/login'])
         },
         error: (err) => this.message = err
       });
